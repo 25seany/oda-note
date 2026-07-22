@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import { getServerDictionary } from "@/lib/i18n/server";
 
 export default async function NotesPage({
   searchParams,
@@ -8,6 +9,7 @@ export default async function NotesPage({
 }) {
   const { filter } = await searchParams;
   const showAll = filter === "all";
+  const { locale, dict: t } = await getServerDictionary();
 
   const supabase = await createClient();
   let query = supabase
@@ -24,12 +26,12 @@ export default async function NotesPage({
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">오답노트</h1>
+        <h1 className="text-xl font-semibold">{t.notes.title}</h1>
         <Link
           href="/capture"
           className="rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white"
         >
-          + 새로 찍기
+          {t.notes.newScan}
         </Link>
       </div>
 
@@ -40,7 +42,7 @@ export default async function NotesPage({
             !showAll ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600"
           }`}
         >
-          오답만
+          {t.notes.filterWrongOnly}
         </Link>
         <Link
           href="/notes?filter=all"
@@ -48,14 +50,12 @@ export default async function NotesPage({
             showAll ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600"
           }`}
         >
-          전체
+          {t.notes.filterAll}
         </Link>
       </div>
 
       {!notes || notes.length === 0 ? (
-        <p className="py-16 text-center text-sm text-zinc-400">
-          아직 기록된 문제가 없어요. 첫 문제를 찍어보세요!
-        </p>
+        <p className="py-16 text-center text-sm text-zinc-400">{t.notes.empty}</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {notes.map((note) => (
@@ -65,12 +65,9 @@ export default async function NotesPage({
                 className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-300"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">
-                    {note.question_text}
-                  </p>
+                  <p className="truncate text-sm font-medium">{note.question_text}</p>
                   <p className="mt-1 text-xs text-zinc-400">
-                    {note.subject} ·{" "}
-                    {new Date(note.created_at).toLocaleDateString("ko-KR")}
+                    {note.subject} · {new Date(note.created_at).toLocaleDateString(locale)}
                   </p>
                 </div>
                 <span
@@ -80,7 +77,7 @@ export default async function NotesPage({
                       : "bg-red-50 text-red-600"
                   }`}
                 >
-                  {note.is_correct ? "정답" : "오답"}
+                  {note.is_correct ? t.notes.correct : t.notes.incorrect}
                 </span>
               </Link>
             </li>

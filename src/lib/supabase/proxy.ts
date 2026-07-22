@@ -1,7 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_PATHS = ["/login"];
+const PUBLIC_PATHS = ["/login", "/capture"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -31,11 +31,14 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isPublicPath = PUBLIC_PATHS.some((path) =>
-    request.nextUrl.pathname.startsWith(path)
-  );
+  const { pathname } = request.nextUrl;
+  const isApiRoute = pathname.startsWith("/api/");
+  const isPublicPath =
+    pathname === "/" || PUBLIC_PATHS.some((path) => pathname.startsWith(path));
 
-  if (!user && !isPublicPath) {
+  // API routes enforce their own auth and return proper status codes;
+  // redirecting them to /login would break fetch() callers expecting JSON.
+  if (!user && !isPublicPath && !isApiRoute) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);

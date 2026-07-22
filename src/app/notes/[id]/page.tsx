@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getServerDictionary } from "@/lib/i18n/server";
 
 export default async function NoteDetailPage({
   params,
@@ -9,6 +10,7 @@ export default async function NoteDetailPage({
 }) {
   const { id } = await params;
   const supabase = await createClient();
+  const { locale, dict: t } = await getServerDictionary();
 
   const { data: note } = await supabase
     .from("wrong_notes")
@@ -25,7 +27,7 @@ export default async function NoteDetailPage({
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6">
       <Link href="/notes" className="text-sm text-zinc-500">
-        ← 목록으로
+        {t.notes.backToList}
       </Link>
 
       <div className="mt-4 flex items-center gap-2">
@@ -36,11 +38,11 @@ export default async function NoteDetailPage({
               : "bg-red-50 text-red-600"
           }`}
         >
-          {note.is_correct ? "정답" : "오답"}
+          {note.is_correct ? t.notes.correct : t.notes.incorrect}
         </span>
         <span className="text-xs text-zinc-400">{note.subject}</span>
         <span className="text-xs text-zinc-400">
-          {new Date(note.created_at).toLocaleString("ko-KR")}
+          {new Date(note.created_at).toLocaleString(locale)}
         </span>
       </div>
 
@@ -48,38 +50,32 @@ export default async function NoteDetailPage({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={signedUrlData.signedUrl}
-          alt="문제 사진"
+          alt="Captured problem"
           className="mt-4 w-full rounded-lg border border-zinc-200 object-contain"
         />
       )}
 
       <div className="mt-6 flex flex-col gap-4">
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">문제</h2>
+          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.questionLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm">{note.question_text}</p>
+        </section>
+
+        <section>
+          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.yourAnswerLabel}</h2>
           <p className="mt-1 whitespace-pre-wrap text-sm">
-            {note.question_text}
+            {note.user_answer || t.notes.noAnswerRecognized}
           </p>
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">내가 쓴 답</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">
-            {note.user_answer || "(인식된 답안 없음)"}
-          </p>
+          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.correctAnswerLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm">{note.correct_answer}</p>
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">정답</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">
-            {note.correct_answer}
-          </p>
-        </section>
-
-        <section>
-          <h2 className="text-sm font-semibold text-zinc-500">해설</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">
-            {note.explanation}
-          </p>
+          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.explanationLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm">{note.explanation}</p>
         </section>
       </div>
     </div>
