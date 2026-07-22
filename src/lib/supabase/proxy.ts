@@ -1,7 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
-const PUBLIC_PATHS = ["/login", "/capture"];
+// Only these paths hold private data and require a signed-in user.
+// Everything else (landing page, capture, login, and Next.js's special
+// files like robots.txt/sitemap.xml/manifest, which search engine
+// crawlers request unauthenticated) is public by default.
+const PROTECTED_PATHS = ["/notes"];
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
@@ -32,13 +36,11 @@ export async function updateSession(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const { pathname } = request.nextUrl;
-  const isApiRoute = pathname.startsWith("/api/");
-  const isPublicPath =
-    pathname === "/" || PUBLIC_PATHS.some((path) => pathname.startsWith(path));
+  const isProtectedPath = PROTECTED_PATHS.some(
+    (path) => pathname === path || pathname.startsWith(`${path}/`)
+  );
 
-  // API routes enforce their own auth and return proper status codes;
-  // redirecting them to /login would break fetch() callers expecting JSON.
-  if (!user && !isPublicPath && !isApiRoute) {
+  if (!user && isProtectedPath) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
