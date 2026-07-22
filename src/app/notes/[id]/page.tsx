@@ -26,22 +26,22 @@ export default async function NoteDetailPage({
 
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6">
-      <Link href="/notes" className="text-sm text-zinc-500">
+      <Link href="/notes" className="text-sm font-medium text-zinc-600 hover:text-blue-600">
         {t.notes.backToList}
       </Link>
 
       <div className="mt-4 flex items-center gap-2">
         <span
-          className={`rounded-full px-2 py-1 text-xs font-medium ${
+          className={`rounded-full px-2 py-1 text-xs font-semibold ${
             note.is_correct
-              ? "bg-emerald-50 text-emerald-600"
-              : "bg-red-50 text-red-600"
+              ? "bg-emerald-100 text-emerald-800"
+              : "bg-red-100 text-red-800"
           }`}
         >
           {note.is_correct ? t.notes.correct : t.notes.incorrect}
         </span>
-        <span className="text-xs text-zinc-400">{note.subject}</span>
-        <span className="text-xs text-zinc-400">
+        <span className="text-xs font-medium text-zinc-500">{note.subject}</span>
+        <span className="text-xs text-zinc-500">
           {new Date(note.created_at).toLocaleString(locale)}
         </span>
       </div>
@@ -57,25 +57,25 @@ export default async function NoteDetailPage({
 
       <div className="mt-6 flex flex-col gap-4">
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.questionLabel}</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">{note.question_text}</p>
+          <h2 className="text-sm font-semibold text-zinc-600">{t.capture.questionLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{note.question_text}</p>
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.yourAnswerLabel}</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">
+          <h2 className="text-sm font-semibold text-zinc-600">{t.capture.yourAnswerLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">
             {note.user_answer || t.notes.noAnswerRecognized}
           </p>
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.correctAnswerLabel}</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">{note.correct_answer}</p>
+          <h2 className="text-sm font-semibold text-zinc-600">{t.capture.correctAnswerLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{note.correct_answer}</p>
         </section>
 
         <section>
-          <h2 className="text-sm font-semibold text-zinc-500">{t.capture.explanationLabel}</h2>
-          <p className="mt-1 whitespace-pre-wrap text-sm">{note.explanation}</p>
+          <h2 className="text-sm font-semibold text-zinc-600">{t.capture.explanationLabel}</h2>
+          <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{note.explanation}</p>
         </section>
       </div>
     </div>

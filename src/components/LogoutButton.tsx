@@ -18,7 +18,7 @@ export default function LogoutButton() {
   return (
     <button
       onClick={handleLogout}
-      className="text-sm text-zinc-500 hover:text-zinc-800"
+      className="text-sm font-medium text-zinc-600 hover:text-red-600"
     >
       {t.nav.logout}
     </button>

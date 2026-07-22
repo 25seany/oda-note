@@ -14,22 +14,22 @@ export default async function Navbar() {
   return (
     <header className="border-b border-zinc-200 bg-white">
       <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-3">
-        <Link href={user ? "/notes" : "/"} className="font-semibold">
+        <Link href={user ? "/notes" : "/"} className="font-semibold text-zinc-900">
           {t.nav.brand}
         </Link>
         <nav className="flex items-center gap-4">
           {user ? (
             <>
-              <Link href="/capture" className="text-sm text-zinc-600 hover:text-zinc-900">
+              <Link href="/capture" className="text-sm font-medium text-zinc-600 hover:text-blue-600">
                 {t.nav.scan}
               </Link>
-              <Link href="/notes" className="text-sm text-zinc-600 hover:text-zinc-900">
+              <Link href="/notes" className="text-sm font-medium text-zinc-600 hover:text-blue-600">
                 {t.nav.myNotes}
               </Link>
               <LogoutButton />
             </>
           ) : (
-            <Link href="/login" className="text-sm text-zinc-600 hover:text-zinc-900">
+            <Link href="/login" className="text-sm font-medium text-zinc-600 hover:text-blue-600">
               {t.nav.login}
             </Link>
           )}

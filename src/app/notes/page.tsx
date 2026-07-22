@@ -26,10 +26,10 @@ export default async function NotesPage({
   return (
     <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-6">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold">{t.notes.title}</h1>
+        <h1 className="text-xl font-semibold text-zinc-900">{t.notes.title}</h1>
         <Link
           href="/capture"
-          className="rounded-lg bg-zinc-900 px-3 py-2 text-sm font-medium text-white"
+          className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-semibold text-white hover:bg-blue-700"
         >
           {t.notes.newScan}
         </Link>
@@ -38,16 +38,16 @@ export default async function NotesPage({
       <div className="mb-4 flex gap-2 text-sm">
         <Link
           href="/notes"
-          className={`rounded-full px-3 py-1 ${
-            !showAll ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600"
+          className={`rounded-full px-3 py-1 font-medium ${
+            !showAll ? "bg-blue-600 text-white" : "bg-zinc-100 text-zinc-700"
           }`}
         >
           {t.notes.filterWrongOnly}
         </Link>
         <Link
           href="/notes?filter=all"
-          className={`rounded-full px-3 py-1 ${
-            showAll ? "bg-zinc-900 text-white" : "bg-zinc-100 text-zinc-600"
+          className={`rounded-full px-3 py-1 font-medium ${
+            showAll ? "bg-blue-600 text-white" : "bg-zinc-100 text-zinc-700"
           }`}
         >
           {t.notes.filterAll}
@@ -55,26 +55,26 @@ export default async function NotesPage({
       </div>
 
       {!notes || notes.length === 0 ? (
-        <p className="py-16 text-center text-sm text-zinc-400">{t.notes.empty}</p>
+        <p className="py-16 text-center text-sm text-zinc-500">{t.notes.empty}</p>
       ) : (
         <ul className="flex flex-col gap-2">
           {notes.map((note) => (
             <li key={note.id}>
               <Link
                 href={`/notes/${note.id}`}
-                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 hover:border-zinc-300"
+                className="flex items-center justify-between rounded-lg border border-zinc-200 bg-white px-4 py-3 hover:border-blue-300"
               >
                 <div className="min-w-0">
-                  <p className="truncate text-sm font-medium">{note.question_text}</p>
-                  <p className="mt-1 text-xs text-zinc-400">
+                  <p className="truncate text-sm font-medium text-zinc-900">{note.question_text}</p>
+                  <p className="mt-1 text-xs text-zinc-500">
                     {note.subject} · {new Date(note.created_at).toLocaleDateString(locale)}
                   </p>
                 </div>
                 <span
-                  className={`ml-3 shrink-0 rounded-full px-2 py-1 text-xs font-medium ${
+                  className={`ml-3 shrink-0 rounded-full px-2 py-1 text-xs font-semibold ${
                     note.is_correct
-                      ? "bg-emerald-50 text-emerald-600"
-                      : "bg-red-50 text-red-600"
+                      ? "bg-emerald-100 text-emerald-800"
+                      : "bg-red-100 text-red-800"
                   }`}
                 >
                   {note.is_correct ? t.notes.correct : t.notes.incorrect}

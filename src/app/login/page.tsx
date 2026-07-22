@@ -46,15 +46,15 @@ function LoginForm() {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="mb-1 text-center text-2xl font-semibold">{t.login.title}</h1>
-        <p className="mb-6 text-center text-sm text-zinc-500">{t.login.subtitle}</p>
+        <h1 className="mb-1 text-center text-2xl font-semibold text-zinc-900">{t.login.title}</h1>
+        <p className="mb-6 text-center text-sm text-zinc-600">{t.login.subtitle}</p>
 
         <div className="mb-4 flex rounded-lg bg-zinc-100 p-1">
           <button
             type="button"
             onClick={() => setMode("signin")}
             className={`flex-1 rounded-md py-2 text-sm font-medium ${
-              mode === "signin" ? "bg-white shadow" : "text-zinc-500"
+              mode === "signin" ? "bg-white text-zinc-900 shadow" : "text-zinc-600"
             }`}
           >
             {t.login.signin}
@@ -63,7 +63,7 @@ function LoginForm() {
             type="button"
             onClick={() => setMode("signup")}
             className={`flex-1 rounded-md py-2 text-sm font-medium ${
-              mode === "signup" ? "bg-white shadow" : "text-zinc-500"
+              mode === "signup" ? "bg-white text-zinc-900 shadow" : "text-zinc-600"
             }`}
           >
             {t.login.signup}
@@ -77,7 +77,7 @@ function LoginForm() {
             placeholder={t.login.email}
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500"
+            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
           />
           <input
             type="password"
@@ -86,18 +86,18 @@ function LoginForm() {
             placeholder={t.login.password}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500"
+            className="rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
           />
           <button
             type="submit"
             disabled={loading}
-            className="mt-1 rounded-lg bg-zinc-900 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="mt-1 rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
           >
             {loading ? t.login.submitLoading : mode === "signin" ? t.login.submitSignin : t.login.submitSignup}
           </button>
         </form>
 
-        {message && <p className="mt-4 text-center text-sm text-zinc-600">{message}</p>}
+        {message && <p className="mt-4 text-center text-sm text-zinc-700">{message}</p>}
       </div>
     </div>
   );

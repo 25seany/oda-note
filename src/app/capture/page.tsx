@@ -147,8 +147,8 @@ export default function CapturePage() {
 
   return (
     <div className="mx-auto flex w-full max-w-md flex-1 flex-col items-center gap-4 px-4 py-8">
-      <h1 className="text-xl font-semibold">{t.capture.title}</h1>
-      <p className="text-center text-sm text-zinc-500">{t.capture.subtitle}</p>
+      <h1 className="text-xl font-semibold text-zinc-900">{t.capture.title}</h1>
+      <p className="text-center text-sm text-zinc-600">{t.capture.subtitle}</p>
 
       {previewUrl ? (
         // eslint-disable-next-line @next/next/no-img-element
@@ -161,10 +161,10 @@ export default function CapturePage() {
         <button
           type="button"
           onClick={() => fileInputRef.current?.click()}
-          className="flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-zinc-300 text-zinc-400"
+          className="flex aspect-square w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-zinc-300 text-zinc-500 hover:border-blue-300 hover:bg-blue-50/40 hover:text-blue-600"
         >
           <span className="text-4xl">📷</span>
-          <span className="text-sm">{t.capture.tapToShoot}</span>
+          <span className="text-sm font-medium">{t.capture.tapToShoot}</span>
         </button>
       )}
 
@@ -184,7 +184,7 @@ export default function CapturePage() {
           <button
             type="button"
             onClick={() => fileInputRef.current?.click()}
-            className="flex-1 rounded-lg border border-zinc-300 py-2 text-sm font-medium"
+            className="flex-1 rounded-lg border border-zinc-300 py-2 text-sm font-medium text-zinc-700 hover:border-blue-300 hover:text-blue-700"
           >
             {t.capture.retake}
           </button>
@@ -192,7 +192,7 @@ export default function CapturePage() {
             type="button"
             disabled={!file || grading}
             onClick={handleGrade}
-            className="flex-1 rounded-lg bg-zinc-900 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="flex-1 rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
           >
             {grading ? t.capture.grading : t.capture.grade}
           </button>
@@ -203,39 +203,39 @@ export default function CapturePage() {
         <div className="flex w-full flex-col gap-4">
           <div className="flex items-center gap-2">
             <span
-              className={`rounded-full px-2 py-1 text-xs font-medium ${
+              className={`rounded-full px-2 py-1 text-xs font-semibold ${
                 analysis.is_correct
-                  ? "bg-emerald-50 text-emerald-600"
-                  : "bg-red-50 text-red-600"
+                  ? "bg-emerald-100 text-emerald-800"
+                  : "bg-red-100 text-red-800"
               }`}
             >
               {analysis.is_correct ? t.capture.correct : t.capture.incorrect}
             </span>
-            <span className="text-xs text-zinc-400">{analysis.subject}</span>
+            <span className="text-xs font-medium text-zinc-500">{analysis.subject}</span>
           </div>
 
           <section>
-            <h2 className="text-sm font-semibold text-zinc-500">{t.capture.questionLabel}</h2>
-            <p className="mt-1 whitespace-pre-wrap text-sm">{analysis.question_text}</p>
+            <h2 className="text-sm font-semibold text-zinc-600">{t.capture.questionLabel}</h2>
+            <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{analysis.question_text}</p>
           </section>
           <section>
-            <h2 className="text-sm font-semibold text-zinc-500">{t.capture.yourAnswerLabel}</h2>
-            <p className="mt-1 whitespace-pre-wrap text-sm">{analysis.user_answer || "—"}</p>
+            <h2 className="text-sm font-semibold text-zinc-600">{t.capture.yourAnswerLabel}</h2>
+            <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{analysis.user_answer || "—"}</p>
           </section>
           <section>
-            <h2 className="text-sm font-semibold text-zinc-500">{t.capture.correctAnswerLabel}</h2>
-            <p className="mt-1 whitespace-pre-wrap text-sm">{analysis.correct_answer}</p>
+            <h2 className="text-sm font-semibold text-zinc-600">{t.capture.correctAnswerLabel}</h2>
+            <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{analysis.correct_answer}</p>
           </section>
           <section>
-            <h2 className="text-sm font-semibold text-zinc-500">{t.capture.explanationLabel}</h2>
-            <p className="mt-1 whitespace-pre-wrap text-sm">{analysis.explanation}</p>
+            <h2 className="text-sm font-semibold text-zinc-600">{t.capture.explanationLabel}</h2>
+            <p className="mt-1 whitespace-pre-wrap text-sm text-zinc-900">{analysis.explanation}</p>
           </section>
 
           <div className="flex gap-2">
             <button
               type="button"
               onClick={reset}
-              className="flex-1 rounded-lg border border-zinc-300 py-2 text-sm font-medium"
+              className="flex-1 rounded-lg border border-zinc-300 py-2 text-sm font-medium text-zinc-700 hover:border-blue-300 hover:text-blue-700"
             >
               {t.capture.tryAnother}
             </button>
@@ -243,7 +243,7 @@ export default function CapturePage() {
               type="button"
               disabled={saving}
               onClick={handleSave}
-              className="flex-1 rounded-lg bg-zinc-900 py-2 text-sm font-medium text-white disabled:opacity-50"
+              className="flex-1 rounded-lg bg-blue-600 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:opacity-50"
             >
               {saving ? t.capture.saving : t.capture.saveCta}
             </button>
