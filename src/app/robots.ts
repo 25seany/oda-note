@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/notes", "/api/"],
     },
-    sitemap: "https://snapgrade.vercel.app/sitemap.xml",
+    sitemap: "https://snapgrade.org/sitemap.xml",
   };
 }

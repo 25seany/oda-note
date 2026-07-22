@@ -19,8 +19,28 @@ export default async function Home() {
     { title: t.landing.step3Title, body: t.landing.step3Body, emoji: "📓" },
   ];
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Snapgrade",
+    applicationCategory: "EducationApplication",
+    operatingSystem: "Any (web)",
+    url: "https://snapgrade.org",
+    description:
+      "Snap a photo of any handwritten problem. Snapgrade grades it instantly, explains the mistake, and builds your personal wrong-answer notebook.",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+  };
+
   return (
     <div className="flex flex-1 flex-col">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
       <section className="mx-auto flex w-full max-w-2xl flex-1 flex-col items-center px-4 pb-10 pt-14 text-center sm:pt-20">
         <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">
           {t.landing.kicker}

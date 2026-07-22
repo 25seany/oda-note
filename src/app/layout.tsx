@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const SITE_URL = "https://snapgrade.vercel.app";
+const SITE_URL = "https://snapgrade.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

@@ -3,13 +3,13 @@ import type { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://snapgrade.vercel.app",
+      url: "https://snapgrade.org",
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
-      url: "https://snapgrade.vercel.app/capture",
+      url: "https://snapgrade.org/capture",
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
